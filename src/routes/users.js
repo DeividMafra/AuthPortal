@@ -1,8 +1,8 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
 const cnn = require('../../config/db');
 const simpleCrud = require('../controllers/generic');
 const bcrypt = require('bcryptjs');
+const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const router = express.Router();
@@ -59,9 +59,10 @@ router.post('/',
                 if (err)
                   console.log(err)
 
+                console.log('result', result)
                 const payload = {
                   user: {
-                    id: newUser.userId
+                    id: result.insertId
                   }
                 };
 

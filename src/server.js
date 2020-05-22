@@ -3,9 +3,6 @@ const cnn = require('../config/db');
 
 const app = express();
 
-//database connection
-// connectDB();
-
 //middleware
 app.use(express.json());
 

@@ -14,6 +14,10 @@ simpleCrud.getOne = (tableName, paramId, id) => {
   return `SELECT * FROM ${tableName} WHERE ${paramId} = ${id}`;
 };
 
+simpleCrud.getUserFromAuth = (tableName, paramId, id) => {
+  return `SELECT userId, name, email, date FROM ${tableName} WHERE ${paramId} = ${id}`;
+};
+
 simpleCrud.modifyOne = (tableName, data, paramId, id) => {
   const columns = Object.keys(data);
   return `UPDATE ${tableName} SET ${columns.join(" = ? ,") + " = ?"} WHERE ${paramId} = ${id}`;
