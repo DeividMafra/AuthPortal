@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 
-const loginController = require('./controllers/loginController');
-
-
 router.get('/', (request, response) => {
   return response.json({ message: 'Auth Portal' });
 });

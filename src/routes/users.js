@@ -59,7 +59,6 @@ router.post('/',
                 if (err)
                   console.log(err)
 
-                console.log('result', result)
                 const payload = {
                   user: {
                     id: result.insertId
