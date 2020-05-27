@@ -1,10 +1,11 @@
 const express = require('express');
 const cnn = require('../config/db');
+var cors = require('cors');
 
 const app = express();
-
 //middleware
 app.use(express.json());
+app.use(cors());
 
 //routes
 app.use('/api/users', require('../src/routes/users'));
