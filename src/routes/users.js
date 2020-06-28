@@ -39,53 +39,53 @@ router.post('/',
           // checkpoint
           return response.status(400).json({ msg: 'There is an user with this email already registered!' });
         }
-        else {
-          // checkpoint
 
-          newUser = {
-            name,
-            email,
-            password
-          } = request.body;
+        // checkpoint
 
-          const salt = await bcrypt.genSalt(10);
-          newUser.password = await bcrypt.hash(password, salt);
+        newUser = {
+          name,
+          email,
+          password
+        } = request.body;
 
-          const values = Object.values(newUser);
+        const salt = await bcrypt.genSalt(10);
+        newUser.password = await bcrypt.hash(password, salt);
 
-          try {
-            await cnn.query(simpleCrud.createOne(tableName, newUser), [[values]],
-              function (err, result) {
-                if (err)
-                  console.log(err)
+        const values = Object.values(newUser);
 
-                const payload = {
-                  user: {
-                    id: result.insertId
-                  }
-                };
+        try {
+          await cnn.query(simpleCrud.createOne(tableName, newUser), [[values]],
+            function (err, result) {
+              if (err)
+                console.log(err)
 
-                jwt.sign(
-                  payload,
-                  config.get('jwtSecret'),
-                  {
-                    expiresIn: 3600
-                  },
-                  (err, token) => {
-                    if (err)
-                      throw err;
-                    return response.json({ token });
-                  }
-                );
+              const payload = {
+                user: {
+                  id: result.insertId
+                }
+              };
 
-              });
+              jwt.sign(
+                payload,
+                config.get('jwtSecret'),
+                {
+                  expiresIn: 36000
+                },
+                (err, token) => {
+                  if (err)
+                    throw err;
+                  return response.json({ token });
+                }
+              );
 
-          } catch (error) {
-            console.error(error.message);
-            response.status(500).send('Server Error');
-          }
+            });
 
+        } catch (error) {
+          console.error(error.message);
+          response.status(500).send('Server Error');
         }
+
+
       });
   });
 
